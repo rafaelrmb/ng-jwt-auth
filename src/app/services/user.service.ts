@@ -9,7 +9,7 @@ const API_URL = 'http://localhost:8080/api/test';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getPublicCOntent(): Observable<any> {
+  getPublicContent(): Observable<any> {
     return this.getData('all');
   }
 
