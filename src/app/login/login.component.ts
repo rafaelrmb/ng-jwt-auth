@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.roles = this.storage.getUser().roles;
       },
       error: (errRes) => {
-        this.errorMsg = errRes.error.message;
+        this.errorMsg = errRes.message;
         this.didLoginFail = true;
       },
     });
