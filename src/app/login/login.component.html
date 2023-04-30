@@ -1,1 +1,78 @@
-<p>login works!</p>
+<div class="col-md-5 mx-auto my-5">
+  <div class="card card-container mx-auto" style="width: 18rem">
+    <img
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="card-img-top"
+    />
+  </div>
+
+  <form
+    *ngIf="!isLoggedIn"
+    (ngSubmit)="loginForm.form.valid && onSubmit()"
+    name="loginForm"
+    #loginForm="ngForm"
+    novalidate
+  >
+    <div class="form-group my-2">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="loginForm.value.username"
+        name="username"
+        required
+        #username="ngModel"
+        [ngClass]="{ 'is-invalid': loginForm.submitted && username.invalid }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="username.invalid && loginForm.submitted"
+      >
+        Username is required!
+      </div>
+    </div>
+
+    <div class="form-group my-2">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        [(ngModel)]="loginForm.value.password"
+        minlength="6"
+        required
+        #password="ngModel"
+        [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="password.errors && loginForm.submitted"
+      >
+        <div *ngIf="password.errors['required']">Password is required!</div>
+        <div *ngIf="password.errors['minlength']">
+          Password must be at least 6 characters long!
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary btn-block my-2">Login</button>
+    </div>
+
+    <div class="form-group">
+      <div
+        *ngIf="loginForm.submitted && didLoginFail"
+        class="alert alert-danger"
+        role="alert"
+      >
+        Login failed: {{ errorMsg }}
+      </div>
+    </div>
+  </form>
+
+  <div class="alert alert-success" *ngIf="isLoggedIn">
+    Logged in as {{ roles }}.
+  </div>
+</div>
