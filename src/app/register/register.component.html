@@ -1,1 +1,115 @@
-<p>resgiter works!</p>
+<div class="col-md-12">
+  <div class="card card-container">
+    <img
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="profile-img-card"
+    />
+  </div>
+
+  <form
+    name="registerForm"
+    (ngSubmit)="registerForm.valid && onSubmit()"
+    *ngIf="!isSuccessful"
+    #registerForm="ngForm"
+    novalidate
+  >
+    <div class="form-group">
+      <label for="username">Username</label>
+
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        id="username"
+        [(ngModel)]="registerForm.value.username"
+        required
+        minlength="3"
+        maxlength="20"
+        #username="ngModel"
+        [ngClass]="{ 'is-invalid': username.errors && registerForm.submitted }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="username.errors && registerForm.submitted"
+      >
+        <div *ngIf="username.errors['required']">Username is required.</div>
+
+        <div *ngIf="username.errors['minlength']">
+          Username must be at least 3 characters.
+        </div>
+
+        <div *ngIf="username.errors['maxlength']">
+          Username cannot be more than 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        id="email"
+        [(ngModel)]="registerForm.value.email"
+        #email="ngModel"
+        required
+        email
+        [ngClass]="{ 'is-invalid': email.errors && registerForm.submitted }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="email.errors && registerForm.submitted"
+      >
+        <div *ngIf="email.errors['required']">Email is required.</div>
+
+        <div *ngIf="email.errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        id="password"
+        [(ngModel)]="registerForm.value.password"
+        #password="ngModel"
+        required
+        minlength="6"
+        [ngClass]="{ 'is-invalid': password.errors && registerForm.submitted }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="password.errors && registerForm.submitted"
+      >
+        <div *ngIf="password.errors['required']">Password is required.</div>
+        <div *ngIf="password.errors['minlength']">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary btn-block">Sign Up</button>
+    </div>
+  </form>
+
+  <div
+    class="alert alert-warning"
+    *ngIf="registerForm.submitted && didSignUpFail"
+  >
+    Signup failed! Please try again. <br />
+    {{ errorMsg }}
+  </div>
+
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    User {{ registerForm.username }} registered successfully! Please login.
+  </div>
+</div>
