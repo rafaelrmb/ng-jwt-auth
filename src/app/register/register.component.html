@@ -13,7 +13,7 @@
     #registerForm="ngForm"
     novalidate
   >
-    <div class="form-group">
+    <div class="form-group my-2">
       <label for="username">Username</label>
 
       <input
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group my-2">
       <label for="email">Email</label>
       <input
         type="email"
@@ -63,15 +63,14 @@
         class="invalid-feedback"
         *ngIf="email.errors && registerForm.submitted"
       >
-        <div *ngIf="email.errors['required']">Email is required.</div>
-
+        <div *ngIf="email.errors['required']">Email is required</div>
         <div *ngIf="email.errors['email']">
           Email must be a valid email address
         </div>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group my-2">
       <label for="email" class="form-label">Password</label>
       <input
         type="password"
