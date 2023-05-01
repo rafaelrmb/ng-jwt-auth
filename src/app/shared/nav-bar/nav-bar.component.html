@@ -1,40 +1,44 @@
-<ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-center">
-  <li ngbNavItem>
-    <button ngbNavLink routerLink="home">Home</button>
-  </li>
+<ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-between">
+  <div class="d-flex">
+    <li ngbNavItem>
+      <button ngbNavLink routerLink="home">Home</button>
+    </li>
 
-  <li ngbDropdown class="nav-item" role="presentation">
-    <button type="button" class="nav-link" ngbDropdownToggle>Roles Menu</button>
-    <div ngbDropdownMenu>
-      <button ngbDropdownItem routerLink="admin" *ngIf="isAdmin">
-        Admin Board
+    <li ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>
+        Roles Menu
       </button>
-      <button ngbDropdownItem routerLink="mod" *ngIf="isModerator">
-        Moderator Board
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem routerLink="admin" *ngIf="isAdmin">
+          Admin Board
+        </button>
+        <button ngbDropdownItem routerLink="mod" *ngIf="isModerator">
+          Moderator Board
+        </button>
+        <button ngbDropdownItem routerLink="user">User</button>
+      </div>
+    </li>
+  </div>
+
+  <div class="d-flex">
+    <li ngbNavItem *ngIf="!isLoggedIn">
+      <button ngbNavLink routerLink="login">Sign In</button>
+    </li>
+
+    <li ngbNavItem *ngIf="!isLoggedIn">
+      <button ngbNavLink routerLink="register">Register</button>
+    </li>
+
+    <li ngbNavItem *ngIf="isLoggedIn">
+      <button ngbNavLink routerLink="profile">
+        {{ username ?? "Profile" }}
       </button>
-      <button ngbDropdownItem routerLink="user">User</button>
-    </div>
-  </li>
+    </li>
 
-  <li ngbNavItem class="ms-auto">
-    <button ngbNavLink routerLink="login" *ngIf="!isLoggedIn">Sign In</button>
-  </li>
-
-  <li ngbNavItem>
-    <button ngbNavLink routerLink="register" *ngIf="!isLoggedIn">
-      Register
-    </button>
-  </li>
-
-  <li ngbNavItem>
-    <button ngbNavLink routerLink="profile" *ngIf="!isLoggedIn">
-      {{ username }}
-    </button>
-  </li>
-
-  <li ngbNavItem>
-    <button ngbNavLink (click)="logout()" *ngIf="isLoggedIn">Logout</button>
-  </li>
+    <li ngbNavItem *ngIf="isLoggedIn">
+      <button ngbNavLink (click)="logout()">Logout</button>
+    </li>
+  </div>
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
